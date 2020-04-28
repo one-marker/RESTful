@@ -1,10 +1,10 @@
-package ru.spring.marker.RESTful;
+package ru.spring.marker.rest;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class ResTfulApplicationTests {
+class ApplicationTests {
 
 	@Test
 	void contextLoads() {

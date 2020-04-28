@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+
+    <context:component-scan base-package="ru.spring.marker.rest.service, ru.spring.marker.rest.dao, ru.spring.marker.rest.model"/>
+
+
+
+
+    <bean id="userDao" class="ru.spring.marker.rest.dao.UserDaoImpl">
+<!--        <property name="dataSource" ref="dataSource"/>-->
+    </bean>
+
+    <bean id="userService" class="ru.spring.marker.rest.service.CrudServiceImpl">
+        <property name="userDao" ref="userDao"/>
+    </bean>
+
+
+    <!-- For jdbcTemplate @Autowired -->
+    <bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+
+    <!-- Database Information -->
+    <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
+          destroy-method="close">
+        <property name="driverClassName" value="org.postgresql.Driver"/>
+        <property name="url"
+                  value="jdbc:postgresql://localhost:5432/marker"/>
+        <property name="username" value="marker"/>
+        <property name="password" value="1"/>
+    </bean>
+
+</beans>
