@@ -8,11 +8,11 @@ import java.util.Map;
 public interface CrudService {
     public void addUser(User user);
 
-    public void updateUser(int id, User user);
+    public void updateUser(User user);
 
-    public void removeUser(int id);
+    public void removeUser(String id);
 
     public List<Map<String, Object>> getUserById(String id);
 
-    public List<User> listBooks();
+    public List<Map<String, Object>> listUsers();
 }

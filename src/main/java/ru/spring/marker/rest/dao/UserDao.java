@@ -9,9 +9,9 @@ public interface UserDao {
 
     public void updateUser(User user);
 
-    public void removeUser(int id);
+    public void removeUser(String id);
 
     public List<Map<String, Object>> getUserById(String id);
 
-    public List<User> listUsers();
+    public List<Map<String, Object>> listUsers();
 }

@@ -29,7 +29,7 @@
           destroy-method="close">
         <property name="driverClassName" value="org.postgresql.Driver"/>
         <property name="url"
-                  value="jdbc:postgresql://localhost:5432/marker"/>
+                  value="jdbc:postgresql://192.168.160.129:5432/marker"/>
         <property name="username" value="marker"/>
         <property name="password" value="1"/>
     </bean>

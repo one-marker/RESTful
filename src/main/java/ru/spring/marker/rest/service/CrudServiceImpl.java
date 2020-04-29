@@ -24,19 +24,19 @@ public class CrudServiceImpl implements CrudService {
     @Override
     @Transactional
     public void addUser(User user) {
-
+        userDao.addUser(user);
     }
 
     @Override
     @Transactional
-    public void updateUser(int id, User user) {
-
+    public void updateUser(User user) {
+        userDao.updateUser(user);
     }
 
     @Override
     @Transactional
-    public void removeUser(int id) {
-
+    public void removeUser(String id) {
+        userDao.removeUser(id);
     }
 
     @Override
@@ -47,7 +47,7 @@ public class CrudServiceImpl implements CrudService {
 
     @Override
     @Transactional
-    public List<User> listBooks() {
-        return null;
+    public List<Map<String, Object>> listUsers() {
+        return userDao.listUsers();
     }
 }

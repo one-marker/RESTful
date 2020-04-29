@@ -4,7 +4,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.datasource.SimpleDriverDataSource;
 import org.springframework.stereotype.Repository;
 import ru.spring.marker.rest.model.User;
 
@@ -19,35 +18,35 @@ public class UserDaoImpl implements UserDao {
     @Autowired
     JdbcTemplate jdbcTemplate;
 
-
-
     @Override
     public void addUser(User user) {
-
-        logger.info("User successfully saved. User details: " + user);
+        jdbcTemplate.update("INSERT INTO users(name, surname, birthday) VALUES (?,?,?)", new Object[] { user.getName(), user.getSurname(), user.getBirthday() } );
+        logger.info("User successfully saved. User id: " + user);
     }
 
     @Override
     public void updateUser(User user) {
-
-        logger.info("User successfully update. User details: " + user);
+        jdbcTemplate.update("UPDATE users SET surname = ?, birthday = ? WHERE name = ?",new Object[] { user.getSurname(), user.getBirthday() , user.getName() } );
+        logger.info("User successfully update by name. User name: " + user.getName());
     }
 
     @Override
-    public void removeUser(int id) {
-
-        logger.info("User successfully removed. User details: " + id);
+    public void removeUser(String id) {
+        jdbcTemplate.update("DELETE FROM users WHERE id = ?", Integer.decode(id));
+        logger.info("User successfully removed. User id: " + id);
     }
 
     @Override
     public List<Map<String, Object>> getUserById(String id) {
-        return jdbcTemplate.queryForList("SELECT * FROM users WHERE id = ?", new Object[] { Integer.parseInt(id) });
+        List<Map<String, Object>> list = jdbcTemplate.queryForList("SELECT * FROM users WHERE id = ?", new Object[] { Integer.parseInt(id) });
+        logger.info("User successfully received. User id: " + id);
+        return list;
     }
 
     @Override
-    @SuppressWarnings("unchecked")
-    public List<User> listUsers() {
-
-        return null;
+    public List<Map<String, Object>> listUsers() {
+        List<Map<String, Object>> list = jdbcTemplate.queryForList("SELECT * FROM users");
+        logger.info("Users successfully received");
+        return list;
     }
 }
