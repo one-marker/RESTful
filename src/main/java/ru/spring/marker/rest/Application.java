@@ -13,16 +13,6 @@ public class Application {
 
 	public static void main(String[] args) {
 		SpringApplication.run(Application.class, args);
-		//AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(ru.spring.marker.rest.config.AppConfig.class);
-
-	//	com.journaldev.spring.dao.PersonDAO personDAO = context.getBean(com.journaldev.spring.dao.PersonDAO.class);
-
-		//System.out.println("List of person is:");
-
-		//context.close();
-
-
-
 	}
 
 
