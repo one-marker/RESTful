@@ -16,7 +16,7 @@
 
     alter table users
         owner to marker;
-Для настройки нашего проекта необходимо укзать параметры к нашей бд в файле application.properties
+Для настройки нашего проекта необходимо указать параметры к нашей бд в файле application.properties
 
     spring.datasource.driver-class-name=org.postgresql.Driver
     spring.datasource.url=jdbc:postgresql://192.168.160.129:5432/marker
