@@ -6,10 +6,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.http.MediaType;
-import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.web.bind.annotation.*;
 import ru.spring.marker.rest.model.User;
-import ru.spring.marker.rest.model.Users;
 import ru.spring.marker.rest.service.CrudServiceImpl;
 
 import javax.servlet.http.HttpServletRequest;
@@ -23,6 +21,7 @@ import java.util.*;
 @RequestMapping("message")
 class CrudController {
 
+    private static final Logger logger = LoggerFactory.getLogger(CrudController.class);
 
     private CrudServiceImpl crudService;
 
@@ -33,9 +32,9 @@ class CrudController {
 
     }
 
-    @GetMapping("{id}")
-    public List<Map<String, Object>> getUserById(@PathVariable String id) {
-        return crudService.getUserById(id);
+    @GetMapping("{value}")
+    public List<Map<String, Object>> getUserById(@PathVariable String value) {
+        return crudService.getUser(value);
     }
 
     @GetMapping
@@ -43,15 +42,16 @@ class CrudController {
         return crudService.listUsers();
     }
 
-    @DeleteMapping("{id}")
-    public void delete(@PathVariable String id) {
-        crudService.removeUser(id);
+    @DeleteMapping("{value}")
+    public void delete(@PathVariable String value) {
+        crudService.removeUser(value);
     }
 
     @RequestMapping(method = RequestMethod.POST, produces={MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
     public User createUser(HttpServletRequest request, @RequestBody String requestString) {
 
         User user = null;
+
 
         switch (request.getContentType()){
             case "application/xml":
@@ -62,6 +62,10 @@ class CrudController {
                     user = (User) jaxbUnmarshaller.unmarshal(new StringReader(requestString));
 
 
+                } catch (javax.xml.bind.UnmarshalException e){
+                    logger.info(requestString);
+                    return user;
+
                 } catch (JAXBException e) {
                     e.printStackTrace();
                 }
@@ -71,7 +75,9 @@ class CrudController {
                 user = gson.fromJson(requestString, User.class);
 
                 break;
-
+            default:
+                logger.info(requestString);
+                break;
         }
 
         crudService.addUser(user);

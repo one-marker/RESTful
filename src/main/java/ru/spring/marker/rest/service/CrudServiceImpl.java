@@ -2,52 +2,57 @@ package ru.spring.marker.rest.service;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import ru.spring.marker.rest.dao.UserDao;
+import org.xml.sax.SAXException;
+import ru.spring.marker.rest.dao.UserData;
 import ru.spring.marker.rest.model.User;
 
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.TransformerException;
+import javax.xml.xpath.XPathExpressionException;
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
 @Service
 public class CrudServiceImpl implements CrudService {
-    String a = "sad";
 
-    private UserDao userDao;
-    public void setUserDao(UserDao userDao) {
-        this.userDao = userDao;
+    private UserData userData;
+    public void setUserData(UserData userData) {
+        this.userData = userData;
     }
 
-    public String getA() {
-        return a;
-    }
+
 
     @Override
     @Transactional
     public void addUser(User user) {
-        userDao.addUser(user);
+
+        userData.addUser(user);
+
     }
 
     @Override
     @Transactional
     public void updateUser(User user) {
-        userDao.updateUser(user);
+        userData.updateUser(user);
     }
 
     @Override
     @Transactional
-    public void removeUser(String id) {
-        userDao.removeUser(id);
+    public void removeUser(String value) {
+        userData.removeUser(value);
     }
 
     @Override
     @Transactional
-    public List<Map<String, Object>> getUserById(String id) {
-        return userDao.getUserById(id);
+    public List<Map<String, Object>> getUser(String value) {
+        return userData.getUser(value);
     }
 
     @Override
     @Transactional
     public List<Map<String, Object>> listUsers() {
-        return userDao.listUsers();
+
+        return userData.listUsers();
     }
 }

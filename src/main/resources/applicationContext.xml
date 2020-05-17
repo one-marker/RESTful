@@ -10,12 +10,12 @@
 
 
 
-    <bean id="userDao" class="ru.spring.marker.rest.dao.UserDaoImpl">
+    <bean id="userData" class="ru.spring.marker.rest.dao.UserDataXmlImpl">
 <!--        <property name="dataSource" ref="dataSource"/>-->
     </bean>
 
     <bean id="userService" class="ru.spring.marker.rest.service.CrudServiceImpl">
-        <property name="userDao" ref="userDao"/>
+        <property name="userData" ref="userData"/>
     </bean>
 
 
@@ -23,6 +23,7 @@
     <bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
         <property name="dataSource" ref="dataSource"/>
     </bean>
+
     <context:property-placeholder location="classpath:application.properties"/>
 
     <!-- Database Information -->

@@ -10,9 +10,9 @@ public interface CrudService {
 
     public void updateUser(User user);
 
-    public void removeUser(String id);
+    public void removeUser(String value);
 
-    public List<Map<String, Object>> getUserById(String id);
+    public List<Map<String, Object>> getUser(String value);
 
     public List<Map<String, Object>> listUsers();
 }
