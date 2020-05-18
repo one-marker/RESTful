@@ -25,45 +25,6 @@ public class Application {
 
 	public static void main(String[] args) throws IOException, SAXException, ParserConfigurationException, XPathExpressionException {
 		SpringApplication.run(Application.class, args);
-
-
-//		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-//		factory.setNamespaceAware(true); // never forget this!
-//		DocumentBuilder builder = factory.newDocumentBuilder();
-//		Document doc = builder.parse("D:\\database.xml");
-//
-//		XPathFactory Xfactory = XPathFactory.newInstance();
-//
-//
-//		XPath xpath = Xfactory.newXPath();
-//
-//
-//		XPathExpression expr = xpath.compile("//User");
-//
-//
-//		Object result = expr.evaluate(doc, XPathConstants.NODESET);
-//
-//		NodeList nodes = (NodeList) result;
-//		for (int i = 0; i < nodes.getLength(); i++) {
-//			System.err.println(nodes.item(i).getNodeValue());
-//		}
-
-		File inputFile = new File("D:\\database.xml");
-
-		DocumentBuilderFactory dbFactory
-				= DocumentBuilderFactory.newInstance();
-		DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-		Document doc = dBuilder.parse(inputFile);
-		doc.getDocumentElement().normalize();
-
-		System.out.println(new PrintStream(new File("D:\\output-file.txt")));
-
-
-		NodeList nList = doc.getElementsByTagName("Users");
-
-		for (int temp = 0; temp < nList.getLength(); temp++) {
-			Node nNode = nList.item(temp);
-		}
 	}
 
 

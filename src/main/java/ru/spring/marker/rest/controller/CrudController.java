@@ -26,10 +26,8 @@ class CrudController {
     private CrudServiceImpl crudService;
 
     public CrudController() {
-
         ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
         crudService = context.getBean("userService", CrudServiceImpl.class);
-
     }
 
     @GetMapping("{value}")
@@ -52,35 +50,32 @@ class CrudController {
 
         User user = null;
 
-
         switch (request.getContentType()){
             case "application/xml":
-
                 try {
                     JAXBContext jaxbContext = JAXBContext.newInstance(User.class);
                     Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
                     user = (User) jaxbUnmarshaller.unmarshal(new StringReader(requestString));
-
-
+                    crudService.addUser(user);
                 } catch (javax.xml.bind.UnmarshalException e){
-                    logger.info(requestString);
-                    return user;
-
+                    logger.info(e.getMessage());
                 } catch (JAXBException e) {
-                    e.printStackTrace();
+                    logger.info(e.getMessage());
                 }
                 break;
             case "application/json":
-                Gson gson = new Gson();
-                user = gson.fromJson(requestString, User.class);
-
+                try {
+                    Gson gson = new Gson();
+                    user = gson.fromJson(requestString, User.class);
+                    crudService.addUser(user);
+                } catch (Exception e) {
+                    logger.info(e.getMessage());
+                }
                 break;
             default:
-                logger.info(requestString);
+                logger.info("data format not defined");
                 break;
         }
-
-        crudService.addUser(user);
 
         return user;
 
@@ -96,19 +91,26 @@ class CrudController {
                     JAXBContext jaxbContext = JAXBContext.newInstance(User.class);
                     Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
                     user = (User) jaxbUnmarshaller.unmarshal(new StringReader(requestString));
-
+                    crudService.updateUser(user);
+                } catch (javax.xml.bind.UnmarshalException e){
+                    logger.info(e.getMessage());
                 } catch (JAXBException e) {
-                    e.printStackTrace();
+                    logger.info(e.getMessage());
                 }
                 break;
             case "application/json":
-                Gson gson = new Gson();
-                user = gson.fromJson(requestString, User.class);
-
+                try {
+                    Gson gson = new Gson();
+                    user = gson.fromJson(requestString, User.class);
+                    crudService.updateUser(user);
+                } catch (Exception e) {
+                    logger.info(e.getMessage());
+                }
+                break;
+            default:
+                logger.info("data format not defined");
                 break;
         }
-
-        crudService.updateUser(user);
 
         return user;
     }

@@ -17,18 +17,15 @@ import java.util.Map;
 public class CrudServiceImpl implements CrudService {
 
     private UserData userData;
+
     public void setUserData(UserData userData) {
         this.userData = userData;
     }
 
-
-
     @Override
     @Transactional
     public void addUser(User user) {
-
         userData.addUser(user);
-
     }
 
     @Override
@@ -52,7 +49,6 @@ public class CrudServiceImpl implements CrudService {
     @Override
     @Transactional
     public List<Map<String, Object>> listUsers() {
-
         return userData.listUsers();
     }
 }
