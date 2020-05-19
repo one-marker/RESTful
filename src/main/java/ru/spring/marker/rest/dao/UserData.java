@@ -10,7 +10,11 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * This interface provides methods for accessing various data sources.
+ */
 public interface UserData {
+
     public void addUser(User user);
 
     public void updateUser(User user);

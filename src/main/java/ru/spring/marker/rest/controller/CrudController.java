@@ -17,6 +17,9 @@ import javax.xml.bind.Unmarshaller;
 import java.io.StringReader;
 import java.util.*;
 
+/**
+ * This Controller class is required to listen for HTTP requests /message.
+ */
 @RestController
 @RequestMapping("message")
 class CrudController {
@@ -25,26 +28,46 @@ class CrudController {
 
     private CrudServiceImpl crudService;
 
+
     public CrudController() {
         ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
         crudService = context.getBean("userService", CrudServiceImpl.class);
     }
 
+    /**
+     * This method handles HTTP GET requests /messege/{value}.
+     * @param value
+     * @return List<Map<String, Object>> (JSON)
+     */
     @GetMapping("{value}")
     public List<Map<String, Object>> getUserById(@PathVariable String value) {
         return crudService.getUser(value);
     }
 
+    /**
+     * This method handles HTTP GET requests /messege.
+     * @return List<Map<String, Object>> (JSON)
+     */
     @GetMapping
     public List<Map<String, Object>> getUsers() {
         return crudService.listUsers();
     }
 
+    /**
+     * This method handles HTTP DELETE requests /messege.
+     * @param value
+     */
     @DeleteMapping("{value}")
     public void delete(@PathVariable String value) {
         crudService.removeUser(value);
     }
 
+    /**
+     * This method handles HTTP POST requests /messege.
+     * @param request
+     * @param requestString
+     * @return List<Map<String, Object>> (JSON)
+     */
     @RequestMapping(method = RequestMethod.POST, produces={MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
     public User createUser(HttpServletRequest request, @RequestBody String requestString) {
 
@@ -60,7 +83,7 @@ class CrudController {
                 } catch (javax.xml.bind.UnmarshalException e){
                     logger.info(e.getMessage());
                 } catch (JAXBException e) {
-                    logger.info(e.getMessage());
+                    logger.error(e.getMessage());
                 }
                 break;
             case "application/json":
@@ -69,17 +92,24 @@ class CrudController {
                     user = gson.fromJson(requestString, User.class);
                     crudService.addUser(user);
                 } catch (Exception e) {
-                    logger.info(e.getMessage());
+                    logger.error(e.getMessage());
                 }
                 break;
             default:
-                logger.info("data format not defined");
+                logger.error("data format not defined");
                 break;
         }
 
         return user;
 
     };
+
+    /**
+     * This method handles HTTP PUT requests /messege.
+     * @param request
+     * @param requestString
+     * @return List<Map<String, Object>> (JSON)
+     */
     @RequestMapping(method = RequestMethod.PUT, produces={MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
     public User update(HttpServletRequest request, @RequestBody String requestString) {
 
@@ -93,9 +123,9 @@ class CrudController {
                     user = (User) jaxbUnmarshaller.unmarshal(new StringReader(requestString));
                     crudService.updateUser(user);
                 } catch (javax.xml.bind.UnmarshalException e){
-                    logger.info(e.getMessage());
+                    logger.error(e.getMessage());
                 } catch (JAXBException e) {
-                    logger.info(e.getMessage());
+                    logger.error(e.getMessage());
                 }
                 break;
             case "application/json":
@@ -104,11 +134,11 @@ class CrudController {
                     user = gson.fromJson(requestString, User.class);
                     crudService.updateUser(user);
                 } catch (Exception e) {
-                    logger.info(e.getMessage());
+                    logger.error(e.getMessage());
                 }
                 break;
             default:
-                logger.info("data format not defined");
+                logger.error("data format not defined");
                 break;
         }
 

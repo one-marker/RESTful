@@ -30,18 +30,25 @@ import java.io.File;
 import java.io.IOException;
 import java.util.*;
 
+/**
+ * Implementation of the UserData interface providing to work with XML file
+ * For XML: in bean id="userData" set class="ru.spring.marker.rest.dao.UserDataXmlImpl"
+ */
 @Repository
 public class UserDataXmlImpl implements UserData {
 
     private static final Logger logger = LoggerFactory.getLogger(UserDataSQLImpl.class);
 
-
-
-
+    /**
+     * The path to the XML file
+     */
     @Value("${app.file.xml}")
     String fileXML;
 
-
+    /**
+     * This method adds the user to the XML file.
+     * @param user Type of data representing one user
+     */
     @Override
     public void addUser(User user)  {
 
@@ -84,18 +91,22 @@ public class UserDataXmlImpl implements UserData {
             logger.info("User successfully saved. User name: " + user);
 
         } catch (IOException e) {
-            logger.info(e.getMessage());
+            logger.error(e.getMessage());
         } catch (TransformerConfigurationException e) {
-            logger.info(e.getMessage());
+            logger.error(e.getMessage());
         } catch (ParserConfigurationException e) {
-            logger.info(e.getMessage());
+            logger.error(e.getMessage());
         } catch (SAXException e) {
-            logger.info(e.getMessage());
+            logger.error(e.getMessage());
         } catch (TransformerException e) {
-            logger.info(e.getMessage());
+            logger.error(e.getMessage());
         }
     }
 
+    /**
+     * This method updates user data. In the XML file, the user is searched by name field
+     * @param user Type of data representing one user
+     */
     @Override
     public void updateUser(User user) {
 
@@ -152,21 +163,25 @@ public class UserDataXmlImpl implements UserData {
             logger.info("User successfully update by name. User name: " + user.getName());
 
         } catch (IOException e) {
-            logger.info(e.getMessage());
+            logger.error(e.getMessage());
         } catch (TransformerConfigurationException e) {
-            logger.info(e.getMessage());
+            logger.error(e.getMessage());
         } catch (ParserConfigurationException e) {
-            logger.info(e.getMessage());
+            logger.error(e.getMessage());
         } catch (SAXException e) {
-            logger.info(e.getMessage());
+            logger.error(e.getMessage());
         } catch (TransformerException e) {
-            logger.info(e.getMessage());
+            logger.error(e.getMessage());
         } catch (XPathExpressionException e) {
-            logger.info(e.getMessage());
+            logger.error(e.getMessage());
         }
 
     }
 
+    /**
+     * This method removes the user by name field.
+     * @param value The name field value
+     */
     @Override
     public void removeUser(String value) {
         try {
@@ -207,24 +222,27 @@ public class UserDataXmlImpl implements UserData {
             logger.info("User successfully removed from " + fileXML + ". User name: " + value);
 
         } catch (IOException e) {
-            logger.info(e.getMessage());
+            logger.error(e.getMessage());
         } catch (TransformerConfigurationException e) {
-            logger.info(e.getMessage());
+            logger.error(e.getMessage());
         } catch (ParserConfigurationException e) {
-            logger.info(e.getMessage());
+            logger.error(e.getMessage());
         } catch (SAXException e) {
-            logger.info(e.getMessage());
+            logger.error(e.getMessage());
         } catch (TransformerException e) {
-            logger.info(e.getMessage());
+            logger.error(e.getMessage());
         } catch (XPathExpressionException e) {
-            logger.info(e.getMessage());
+            logger.error(e.getMessage());
         }
 
 
     }
 
-
-
+    /**
+     *
+     * @param value The name field value
+     * @return List<Map<String, Object>>
+     */
     @Override
     public List<Map<String, Object>> getUser(String value) {
 
@@ -285,18 +303,22 @@ public class UserDataXmlImpl implements UserData {
             logger.info("User successfully received. User name: " + value);
 
         } catch(IOException e){
-            logger.info(e.getMessage());
+            logger.error(e.getMessage());
         } catch(ParserConfigurationException e){
-            logger.info(e.getMessage());
+            logger.error(e.getMessage());
         } catch(SAXException e){
-            logger.info(e.getMessage());
+            logger.error(e.getMessage());
         } catch (XPathExpressionException e) {
-            logger.info(e.getMessage());
+            logger.error(e.getMessage());
         }
 
         return list;
     }
 
+    /**
+     *
+     * @return List<Map<String, Object>>
+     */
     @Override
     public List<Map<String, Object>> listUsers()  {
         List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
@@ -345,13 +367,13 @@ public class UserDataXmlImpl implements UserData {
             logger.info("Users successfully received from XML");
 
         } catch (IOException e) {
-            logger.info(e.getMessage());
+            logger.error(e.getMessage());
         }  catch (ParserConfigurationException e) {
-            logger.info(e.getMessage());
+            logger.error(e.getMessage());
         } catch (SAXException e) {
-            logger.info(e.getMessage());
+            logger.error(e.getMessage());
         } catch (XPathExpressionException e) {
-            logger.info(e.getMessage());
+            logger.error(e.getMessage());
         }
 
         return list;
