@@ -1,5 +1,7 @@
 package ru.spring.marker.rest.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.xml.sax.SAXException;
@@ -30,9 +32,11 @@ public class CrudServiceImpl implements CrudService {
      * This is the constructor needed to implement the UserData dependency.
      * @param userData Data Access Object
      */
-    public void setUserData(UserData userData) {
+    @Autowired
+    public void setUserData(@Qualifier("userDataSQLImpl")UserData userData) {
         this.userData = userData;
     }
+    //userDataXmlImpl
 
 
     /**
@@ -72,7 +76,7 @@ public class CrudServiceImpl implements CrudService {
      * This method is tagged with @Transactional, meaning that any failure causes the entire
      * operation to roll back to its previous state and to re-throw the original exception.
      * @param value
-     * @return List<Map<String, Object>>
+     * @return a list of users
      */
     @Override
     @Transactional
@@ -83,7 +87,7 @@ public class CrudServiceImpl implements CrudService {
     /**
      * This method is tagged with @Transactional, meaning that any failure causes the entire
      * operation to roll back to its previous state and to re-throw the original exception.
-     * @return  List<Map<String, Object>>
+     * @return a list of users
      */
     @Override
     @Transactional

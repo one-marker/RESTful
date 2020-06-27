@@ -2,6 +2,7 @@ package ru.spring.marker.rest.dao;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 import ru.spring.marker.rest.model.User;
@@ -21,12 +22,13 @@ public class UserDataSQLImpl implements UserData {
     /**
      *  template class that does all the database interactions
      */
-    final JdbcTemplate jdbcTemplate;
+    JdbcTemplate jdbcTemplate;
 
     /**
      * This is the constructor needed to implement the jdbcTemplate dependency.
      * @param jdbcTemplate template class that does all the database interactions
      */
+    @Autowired
     public UserDataSQLImpl(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }
@@ -67,7 +69,7 @@ public class UserDataSQLImpl implements UserData {
     /**
      * This method gets a list of users by id field
      * @param value The id value
-     * @return List<Map<String, Object>>
+     * @return a list of users
      */
     @Override
     public List<Map<String, Object>> getUser(String value) {
@@ -78,7 +80,7 @@ public class UserDataSQLImpl implements UserData {
 
     /**
      * This method gets a complete list of users
-     * @return List<Map<String, Object>>
+     * @return a list of users
      */
     @Override
     public List<Map<String, Object>> listUsers() {

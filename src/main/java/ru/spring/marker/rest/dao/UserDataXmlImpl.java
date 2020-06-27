@@ -241,7 +241,7 @@ public class UserDataXmlImpl implements UserData {
     /**
      *
      * @param value The name field value
-     * @return List<Map<String, Object>>
+     * @return a list of users
      */
     @Override
     public List<Map<String, Object>> getUser(String value) {
@@ -317,7 +317,7 @@ public class UserDataXmlImpl implements UserData {
 
     /**
      *
-     * @return List<Map<String, Object>>
+     * @return a list of users
      */
     @Override
     public List<Map<String, Object>> listUsers()  {

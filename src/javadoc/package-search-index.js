@@ -1,1 +1,1 @@
-packageSearchIndex = [{"l":"All Packages","url":"allpackages-index.html"},{"l":"ru.spring.marker.rest"},{"l":"ru.spring.marker.rest.dao"},{"l":"ru.spring.marker.rest.model"},{"l":"ru.spring.marker.rest.service"}]
+packageSearchIndex = [{"l":"All Packages","url":"allpackages-index.html"},{"l":"ru.spring.marker.rest"},{"l":"ru.spring.marker.rest.controller"},{"l":"ru.spring.marker.rest.dao"},{"l":"ru.spring.marker.rest.model"},{"l":"ru.spring.marker.rest.service"}]
